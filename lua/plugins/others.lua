@@ -94,7 +94,7 @@ return {
         },
     },
     {
-        'echasnovski/mini.nvim',
+        'nvim-mini/mini.nvim',
         config = function()
             local minimap = require('mini.map')
             minimap.setup({
