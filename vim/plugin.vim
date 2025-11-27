@@ -7,11 +7,21 @@ endfunction
 command! -nargs=+ -bar PlugIf call Plug(<args>)
 
 call plug#begin(g:vimdir . '/plugged')
-LoadVim vim/plugins/basic.vim
-LoadVim vim/plugins/filetree.vim
-LoadVim vim/plugins/git.vim
-LoadVim vim/plugins/beauty.vim
-LoadVim vim/plugins/fuzzy.vim
-LoadVim vim/plugins/coc.vim
-LoadVim vim/plugins/languages.vim
+Source vim/plugins/basic.vim
+Source vim/plugins/filetree.vim
+Source vim/plugins/git.vim
+Source vim/plugins/beauty.vim
+Source vim/plugins/fuzzy.vim
+Source vim/plugins/coc.vim
+Source vim/plugins/languages.vim
+
+PlugIf 'folke/lazy.nvim', has('nvim')
+" if Plug('nvim-mini/mini.nvim', has('nvim') && v:true)
+"     call plug#load('mini.nvim')
+"     lua require('configs.mini')
+" endif
 call plug#end()
+
+if has('nvim')
+    lua require('configs.lazy')
+endif
