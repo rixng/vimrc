@@ -1,4 +1,13 @@
-PlugIf 'lifepillar/vim-mucomplete', !has('nvim') && !g:config_plugins.coc
+if Plug('lifepillar/vim-mucomplete', !has('nvim') && !g:config_plugins.coc)
+    " 自动启动
+    let g:mucomplete#enable_auto_at_startup = 1
+    " 选择时当前输入不变
+    let g:mucomplete#always_use_completeopt = 1
+    " 不默认选中第一项
+    set completeopt+=noselect
+    " 回车的实现
+    imap <expr> <CR> pumvisible() ? "<c-y><plug>(MUcompleteCR)" : "<plug>(MUcompleteCR)"
+endif
 if Plug('neoclide/coc.nvim', !has('nvim') && g:config_plugins.coc, {'branch': 'release'}) " coc
     " Use tab for trigger completion with characters ahead and navigate
     " NOTE: There's always complete item selected by default, you may want to enable
