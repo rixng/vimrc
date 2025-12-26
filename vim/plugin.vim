@@ -15,13 +15,13 @@ Source vim/plugins/fuzzy.vim
 Source vim/plugins/coc.vim
 Source vim/plugins/languages.vim
 
-PlugIf 'folke/lazy.nvim', has('nvim')
-" if Plug('nvim-mini/mini.nvim', has('nvim') && v:true)
-"     call plug#load('mini.nvim')
-"     lua require('configs.mini')
-" endif
+PlugIf 'folke/lazy.nvim', has('nvim') && g:config_plugins.nvim_plugins == 'lazy'
+if Plug('nvim-mini/mini.nvim', has('nvim') && g:config_plugins.nvim_plugins == 'mini', {'branch': 'stable'} )
+   call plug#load('mini.nvim')
+   lua require('configs.mini')
+endif
 call plug#end()
 
-if has('nvim')
+if has('nvim') && g:config_plugins.nvim_plugins == 'lazy'
     lua require('configs.lazy')
 endif
