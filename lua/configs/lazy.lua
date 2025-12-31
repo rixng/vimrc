@@ -4,8 +4,8 @@ end
 -- Bootstrap lazy.nvim
 require("lazy").setup({
     spec = {
-        { import = 'plugins' },
-        { import = 'plugins/languages' },
+        { import = 'lazy-plugins' },
+        { import = 'lazy-plugins/languages' },
     },
     git = {
         url_format = vim.g.plug_url_format,

@@ -9,6 +9,7 @@ return {
     {
         {
             'folke/trouble.nvim',
+            cond = false,
             opts = {},
         },
         {
