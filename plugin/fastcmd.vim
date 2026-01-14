@@ -86,7 +86,7 @@ function! fastcmd#find_param1(str) abort
     return -1  " 未找到
 endfunction
 
-function! fastcmd#global_normal(global, params) range
+function! fastcmd#global_normal(global, line1, line2, params) range
     " 必须以斜杠开头
     if a:params[0] !=# '/'
         echo "Error: Command must start with /"
@@ -107,7 +107,8 @@ function! fastcmd#global_normal(global, params) range
 
     let g:fastcmd.normal.batch = v:true
     call fastcmd#clean()
-    execute a:global . '/' . pattern . '/' . ':Normal ' . command
+    execute a:line1 . ',' a:line2 .
+          \ a:global . '/' . pattern . '/' . ':Normal ' . command
     call fastcmd#load()
     let g:fastcmd.normal.batch = v:false
 endfunction
@@ -123,12 +124,14 @@ function! fastcmd#normal_number(params) range
     endif
 endfunction
 
-" `:Normal {command}`  ==  `:normal! {command}`
+" `:Normal {command}`  ==>  `:normal! {command}`
 command! -range -nargs=1 Normal call g:fastcmd#normal(<line1>, <line2>, <q-args>)
-" `:GNormal/{pattern}/{command}`  ==  `:g/{pattern}/:normal! {command}`
-command! -range -nargs=1 GNormal call g:fastcmd#global_normal('g', <q-args>)
-" `:VNormal/{pattern}/{command}`  ==  `:v/{pattern}/:normal! {command}`
-command! -range -nargs=1 VNormal call g:fastcmd#global_normal('v', <q-args>)
+" `:GNormal/{pattern}/{command}`  ==>  `:g/{pattern}/:normal! {command}`
+" 在能被{pattern}匹配的行, 执行{command} (不是{pattern}位置)
+command! -range -nargs=1 GNormal call g:fastcmd#global_normal('g', <line1>, <line2>, <q-args>)
+" `:VNormal/{pattern}/{command}`  ==>  `:v/{pattern}/:normal! {command}`
+" 在不被{pattern}匹配的行, 执行{command}
+command! -range -nargs=1 VNormal call g:fastcmd#global_normal('v', <line1>, <line2>, <q-args>)
 
 " Number  在 Normal 中类似递增操作
 " 普通模式(每行执行 行数的<C-A>) (:Number {action}<CR>)
