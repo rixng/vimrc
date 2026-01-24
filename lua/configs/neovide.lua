@@ -1,6 +1,3 @@
-if not vim.g.neovide then
-    return
-end
 -- 初始不允许使用输入法
 vim.g.neovide_input_ime = false
 

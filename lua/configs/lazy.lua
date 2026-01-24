@@ -3,6 +3,7 @@ if vim.g.vscode then
 end
 -- Bootstrap lazy.nvim
 require("lazy").setup({
+    root = vim.g.vimdir .. '/lazy',
     spec = {
         { import = 'lazy-plugins' },
         { import = 'lazy-plugins/languages' },

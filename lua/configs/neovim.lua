@@ -1,14 +1,3 @@
-local nvim_stdpath = vim.fn.stdpath
-vim.fn.stdpath = function(what)
-    if what == 'data' or what == 'state' or what == 'log' then
-        return vim.fn.expand(vim.g.vimdir .. '/nvim-data/data')
-    end
-    if what == 'config' then
-        return vim.fn.expand(vim.g.vimdir .. '/nvim-data/config')
-    end
-    return nvim_stdpath(what)
-end
-
 -- 始终显示状态栏(set laststatus=2) 且占满
 vim.opt.laststatus = 3
 -- <C-Insert>复制 

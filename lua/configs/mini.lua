@@ -1,19 +1,27 @@
-if vim.g.vscode then return end
+if vim.g.vscode then
+    return
+end
 
 require('mini.deps').setup(
     {
         path = {
-            package = vim.fn.stdpath('data') .. '/site/'
+            package = vim.g.vimdir .. '/mini-deps'
         }
     }
 )
-MiniDeps.add('neovim/nvim-lspconfig')
-MiniDeps.add('mason-org/mason.nvim')
-MiniDeps.add('mason-org/mason-lspconfig.nvim')
-require('mason').setup()
-require('mason-lspconfig').setup()
-require('mini.completion').setup()
--- 可用最简 但还需配置completion的习惯
+-- MiniUpdate 更新 mini.nvim 和 mini.deps 插件
+vim.api.nvim_create_user_command('MiniUpdate', function()
+    vim.cmd('PlugUpdate mini.nvim')
+    MiniDeps.update()
+end, { bang = true})
+
+require('mini.keymap').setup()
+
+require('mini-plugins/treesitter')
+require('mini-plugins/lsp-config')
+require('mini-plugins/completion')
+
+require('mini.starter').setup()
 
 
 
