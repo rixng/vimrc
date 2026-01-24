@@ -13,17 +13,6 @@ return {
             local builtin = require('telescope.builtin')
             telescope.setup({
                 defaults = {
-                    layout_strategy = 'vertical',
-                    layout_config = {
-                        width = 0.999,
-                        height = 0.999,
-                    },
-                    borderchars = {
-                                  { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-                        preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-                        results = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-                        prompt =  { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-                    },
                     mappings = {
                         i = {
                             ['<Esc>'] = actions.close,
@@ -57,19 +46,14 @@ return {
     },
     {
         'ibhagwan/fzf-lua',
-        cond = true,
+        cond = false,
         opts = {
             fzf_bin = vim.g.vimdir .. '/plugged/fzf/bin/fzf',
             winopts = {
                 fullscreen = true,
-                preview = {
-                    layout = 'vertical',
-                    vertical = 'up'
-                },
             },
         },
         config = function(_, opts)
-            if true then return end
             require('fzf-lua').setup(opts)
             local fzf = require('fzf-lua')
             vim.keymap.set('n', 'gR', fzf.lsp_references)
