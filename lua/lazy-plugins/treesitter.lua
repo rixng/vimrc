@@ -2,90 +2,71 @@
 return {
     {
         'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate', -- 需要安装c语言环境
-        version = '*',
-        event = 'VeryLazy',
-        opts = {
-            ensure_installed = { 'vim', 'regex', 'lua', 'bash', 'markdown', 'markdown_inline', },
-            auto_install = true,
-            -- 高亮
-            highlight = {
-                enable = true,
-                disable = function(_, buf) -- 高亮100KB以内的文件
-                    local max_filesize = 100 * 1024
-                    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-                    if ok and stats and stats.size > max_filesize then
-                        return true
-                    end
-                end,
-                additional_vim_regex_highlighting = false,
-            },
-            -- 范围选取
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection    = '<C-S>',
-                    node_incremental  = '<C-S>',
-                    node_decremental  = '<C-S-S>',
-                    scope_incremental = '<C-A-S>',
-                },
-            },
-            -- 文本对象
-            textobjects = {
-                select = {
-                    enable = true,
-                    lookahead = true,
-                    keymaps = {
-                        ['af'] = '@function.outer',
-                        ['if'] = '@function.inner',
-                        ['ac'] = '@class.outer',
-                        ['ic'] = '@class.inner',
-                        ['as'] = { query = '@local.scope', query_group = 'locals' },
-                        ['is'] = { query = '@local.scope', query_group = 'locals' },
-                        ['aa'] = '@parameter.outer',
-                        ['ia'] = '@parameter.inner',
-                    },
-                    selection_modes = {
-                        ['@class.outer'] = 'V', -- linewise
-                    },
-                    include_surrounding_whitespace = true,
-                },
-            },
-            -- % 匹配
-            matchup = {
-                enable = true,
-            },
-        },
+        branch = 'main',
+        lazy = false,
+        build = ':TSUpdate',
         init = function()
         end,
         config = function(_, opts)
-            require 'nvim-treesitter.install'.prefer_git = true
-            -- 将git地址从https改为ssh 下载失败尝试关闭VPN
-            -- https://github.com/who/what => git@github.com:who/what
-            for _, config in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
-                config.install_info.url = config.install_info.url:gsub(
-                    'https://github.com/',
-                    'git@github.com:'
-                )
+            -- 将git-https转为git-ssh https://github.com/who/what => git@github.com:who/what
+            for _, config in pairs(require('nvim-treesitter.parsers')) do
+                if config.install_info ~= nil and config.install_info ~= nil then
+                    config.install_info.url = config.install_info.url:gsub(
+                        "^https://([^:/]+)/",
+                        "git@%1:"
+                    )
+                end
             end
-            require 'nvim-treesitter.configs'.setup(opts)
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function()
+                  pcall(vim.treesitter.start)
+                  vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                  vim.wo[0][0].foldmethod = 'expr'
+                  vim.cmd('normal! zR')
+                end,
+            })
             -- 使用git下载
         end,
     },
     {
         -- 文本对象
         'nvim-treesitter/nvim-treesitter-textobjects',
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        version = '*',
-        event = 'VeryLazy',
+        branch = 'main',
+        opts = {
+            select = {
+                lookahead = true,
+            },
+        },
+        config = function(_, opts)
+            require('nvim-treesitter-textobjects').setup(opts)
+            vim.keymap.set({'x','o'}, 'af', function()
+                require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')
+            end)
+            vim.keymap.set({'x','o'}, 'if', function()
+                require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')
+            end)
+            vim.keymap.set({'x','o'}, 'ac', function()
+                require('nvim-treesitter-textobjects.select').select_textobject('@class.inner', 'textobjects')
+            end)
+            vim.keymap.set({'x','o'}, 'ic', function()
+                require('nvim-treesitter-textobjects.select').select_textobject('@class.inner', 'textobjects')
+            end)
+            vim.keymap.set({'x','o'}, 'as', function()
+                require('nvim-treesitter-textobjects.select').select_textobject('@local.scope', 'locals')
+            end)
+            vim.keymap.set({'x','o'}, 'is', function()
+                require('nvim-treesitter-textobjects.select').select_textobject('@local.scope', 'locals')
+            end)
+        end
     },
     {
         -- 显示代码上下文
         'nvim-treesitter/nvim-treesitter-context',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         version = '*',
-        event = 'VeryLazy',
-        config = true,
+        opts = {
+            enable = true
+        }
     },
     {
         -- 自动Tag
