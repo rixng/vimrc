@@ -18,8 +18,6 @@ let g:config_nerdfont = 1
 let g:config_plugins = exists('g:config_plugins') ? g:config_plugins : {}
 " [default] [LeaderF] [fzf] [ctrlp-grepper] [fuzzyy]
 let g:config_plugins.fuzzy = 'default'
-" [1] [0]
-let g:config_plugins.coc = 1
 " [lazy] [mini]
 let g:config_plugins.nvim_plugins = 'lazy'
 
