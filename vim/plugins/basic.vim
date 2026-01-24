@@ -94,4 +94,4 @@ if Plug('skywind3000/asynctasks.vim', v:version >= 800)  " 异步任务
 endif
 
 " vim9
-PlugIf 'yianwillis/vimcdoc', v:version >= 900  " 中文文档
+Plug 'yianwillis/vimcdoc'
