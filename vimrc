@@ -17,6 +17,8 @@ Source vim/setting.vim
 Source vim/mapping.vim
 " 加载vim的配置
 Source vim/vim.vim
+" 加载vim插件(vim-plug)
+Source vim/plugin.vim
 if has('nvim')
     " 加载neovim的配置
     lua require('configs.neovim')
@@ -24,9 +26,13 @@ if has('nvim')
         " 加载neovide的配置
         lua require('configs.neovide')
     endif
+    if g:config_plugins.nvim_plugins == 'lazy'
+        lua require('configs.lazy')
+    endif
+    if g:config_plugins.nvim_plugins == 'mini'
+        lua require('configs.mini')
+    endif
 endif
-" 加载vim插件(vim-plug)
-Source vim/plugin.vim
 
 " 最后加载
 Source vim/configs/G_example.vim

@@ -16,12 +16,5 @@ Source vim/plugins/coc.vim
 Source vim/plugins/languages.vim
 
 PlugIf 'folke/lazy.nvim', has('nvim') && g:config_plugins.nvim_plugins == 'lazy'
-if Plug('nvim-mini/mini.nvim', has('nvim') && g:config_plugins.nvim_plugins == 'mini', {'branch': 'stable'} )
-   call plug#load('mini.nvim')
-   lua require('configs.mini')
-endif
+PlugIf 'nvim-mini/mini.nvim', has('nvim') && g:config_plugins.nvim_plugins == 'mini', {'branch': 'stable'}
 call plug#end()
-
-if has('nvim') && g:config_plugins.nvim_plugins == 'lazy'
-    lua require('configs.lazy')
-endif
