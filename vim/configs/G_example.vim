@@ -22,7 +22,6 @@ if has('gui_running')
 endif
 
 " 加载自定义配置
-if !empty(matchlist(resolve(expand('<sfile>:p')), 'G_example\.vim$'))
-    \  && filereadable(expand('<sfile>:h') . '/G.vim')
+if !empty(matchlist(resolve(expand('<sfile>:p')), 'G_example\.vim$')) && filereadable(expand('<sfile>:h') . '/G.vim')
   source <sfile>:h/G.vim
 endif

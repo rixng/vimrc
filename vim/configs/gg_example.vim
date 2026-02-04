@@ -22,7 +22,6 @@ let g:config_plugins.fuzzy = 'default'
 let g:config_plugins.nvim_plugins = 'lazy'
 
 " 加载自定义配置
-if !empty(matchlist(resolve(expand('<sfile>:p')), 'gg_example\.vim$'))
-    \  && filereadable(expand('<sfile>:h') . '/gg.vim')
+if !empty(matchlist(resolve(expand('<sfile>:p')), 'gg_example\.vim$')) && filereadable(expand('<sfile>:h') . '/gg.vim')
   source <sfile>:h/gg.vim
 endif
