@@ -43,3 +43,10 @@ if has('multi_byte_ime')
         autocmd VimEnter * set imdisable | set noimdisable
     augroup END
 endif
+
+command! LargeFile call LargeFile()
+function! LargeFile()
+    " 搜索慢
+    set shortmess+=S
+    let g:airline_extensions = []
+endfunction

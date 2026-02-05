@@ -45,9 +45,7 @@ set number relativenumber
 " 高亮显示当前行
 set cursorline
 " 显示搜索匹配数
-if !g:large_file " 大文件影响性能
-    set shortmess-=S
-endif
+set shortmess-=S
 " 显示当前命令
 set showcmd
 " 始终显示状态栏

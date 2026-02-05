@@ -34,9 +34,6 @@ if Plug('vim-airline/vim-airline-themes', !has('nvim'))
     if v:version >= 900
         let g:airline_experimental = 1
     endif
-    if g:large_file
-        let g:airline_extensions = []
-    endif
     " 只有一个tab时 显示buffers
     let g:airline#extensions#tabline#enabled = 1
     " 标题仅显示文件名
