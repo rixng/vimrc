@@ -131,5 +131,5 @@ return {
     {
         -- 用颜色显示颜色的文本
         'brenoprata10/nvim-highlight-colors',
-    }
+    },
 }

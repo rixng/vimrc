@@ -17,15 +17,16 @@ return {
                     )
                 end
             end
-            vim.api.nvim_create_autocmd("FileType", {
-                callback = function()
-                  pcall(vim.treesitter.start)
-                  vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-                  vim.wo[0][0].foldmethod = 'expr'
-                  vim.cmd('normal! zR')
-                end,
-            })
-            -- 使用git下载
+            if not vim.g.vscode then
+                vim.api.nvim_create_autocmd("FileType", {
+                    callback = function()
+                      pcall(vim.treesitter.start)
+                      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                      vim.wo[0][0].foldmethod = 'expr'
+                      vim.cmd('normal! zR')
+                    end,
+                })
+            end
         end,
     },
     {
@@ -64,6 +65,7 @@ return {
         'nvim-treesitter/nvim-treesitter-context',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         version = '*',
+        cond = not vim.g.vscode,
         opts = {
             enable = true
         }
@@ -73,6 +75,7 @@ return {
         'windwp/nvim-ts-autotag',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         version = '*',
+        cond = not vim.g.vscode,
         event = 'VeryLazy',
         config = true,
     },
@@ -88,11 +91,13 @@ return {
     {
         -- 注释
         'JoosepAlviste/nvim-ts-context-commentstring',
+        cond = not vim.g.vscode,
     },
     {
         -- 自动括号
         'windwp/nvim-autopairs',
         version = '*',
+        cond = not vim.g.vscode,
         event = 'VeryLazy',
         opts = {
             modes = { insert = true, command = true, terminal = false },

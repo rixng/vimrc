@@ -26,6 +26,10 @@ if has('nvim')
         " 加载neovide的配置
         lua require('configs.neovide')
     endif
+    if exists('g:vscode')
+        " 加载vscode的配置
+        lua require('configs.vscode')
+    endif
     if g:config_plugins.nvim_plugins == 'lazy'
         lua require('configs.lazy')
     endif

@@ -8,12 +8,14 @@ command! -nargs=+ -bar PlugIf call Plug(<args>)
 
 call plug#begin(g:vimdir . '/plugged')
 Source vim/plugins/basic.vim
-Source vim/plugins/filetree.vim
-Source vim/plugins/git.vim
-Source vim/plugins/beauty.vim
-Source vim/plugins/fuzzy.vim
-Source vim/plugins/coc.vim
-Source vim/plugins/languages.vim
+if !exists('g:vscode')
+    Source vim/plugins/filetree.vim
+    Source vim/plugins/git.vim
+    Source vim/plugins/beauty.vim
+    Source vim/plugins/fuzzy.vim
+    Source vim/plugins/coc.vim
+    Source vim/plugins/languages.vim
+endif
 
 PlugIf 'folke/lazy.nvim', has('nvim') && g:config_plugins.nvim_plugins == 'lazy'
 PlugIf 'nvim-mini/mini.nvim', has('nvim') && g:config_plugins.nvim_plugins == 'mini', {'branch': 'stable'}
