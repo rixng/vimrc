@@ -17,6 +17,5 @@ if !exists('g:vscode')
     Source vim/plugins/languages.vim
 endif
 
-PlugIf 'folke/lazy.nvim', has('nvim') && g:config_plugins.nvim_plugins == 'lazy'
-PlugIf 'nvim-mini/mini.nvim', has('nvim') && g:config_plugins.nvim_plugins == 'mini', {'branch': 'stable'}
+PlugIf 'folke/lazy.nvim', has('nvim')
 call plug#end()

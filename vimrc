@@ -30,12 +30,7 @@ if has('nvim')
         " 加载vscode的配置
         lua require('configs.vscode')
     endif
-    if g:config_plugins.nvim_plugins == 'lazy'
-        lua require('configs.lazy')
-    endif
-    if g:config_plugins.nvim_plugins == 'mini'
-        lua require('configs.mini')
-    endif
+    lua require('configs.lazy')
 endif
 
 " 最后加载

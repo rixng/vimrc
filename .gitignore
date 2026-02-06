@@ -3,7 +3,6 @@
 /sessions
 /plugged
 /lazy
-/mini-deps
 /vim/configs/*
 !/vim/configs/*_example.vim
 /autoload/plug.vim.old

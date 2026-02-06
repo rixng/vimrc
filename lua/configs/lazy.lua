@@ -2,9 +2,9 @@
 require("lazy").setup({
     root = vim.g.vimdir .. '/lazy',
     spec = {
-        { import = 'lazy-plugins', cond = not vim.g.vscode },
-        { import = 'lazy-plugins/languages', cond = not vim.g.vscode },
-        { import = 'lazy-plugins/vscode', cond = vim.g.vscode },
+        { import = 'plugins', cond = not vim.g.vscode },
+        { import = 'plugins/languages', cond = not vim.g.vscode },
+        { import = 'plugins/vscode', cond = vim.g.vscode },
     },
     git = {
         url_format = vim.g.plug_url_format,

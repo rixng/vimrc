@@ -18,8 +18,6 @@ let g:config_nerdfont = 1
 let g:config_plugins = exists('g:config_plugins') ? g:config_plugins : {}
 " [default] [LeaderF] [fzf] [ctrlp-grepper] [fuzzyy]
 let g:config_plugins.fuzzy = 'default'
-" [lazy] [mini]
-let g:config_plugins.nvim_plugins = 'lazy'
 
 " 加载自定义配置
 if !empty(matchlist(resolve(expand('<sfile>:p')), 'gg_example\.vim$')) && filereadable(expand('<sfile>:h') . '/gg.vim')

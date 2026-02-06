@@ -1,6 +1,6 @@
 return {
     {
-        import = 'lazy-plugins/treesitter'
+        import = 'plugins/treesitter',
     },
     {
         "szb000801/smart-input-pro.nvim",
